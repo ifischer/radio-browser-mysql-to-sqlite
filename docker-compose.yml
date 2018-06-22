@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  db:
+    build: db
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=stations
+
+  sequel:
+    build: sequel
+    depends_on:
+      - db
+    command: ["/sequel-import.sh"]
+    volumes:
+      - .:/sqlite
